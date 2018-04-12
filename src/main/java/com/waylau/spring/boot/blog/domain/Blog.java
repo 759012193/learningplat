@@ -98,6 +98,9 @@ public class Blog implements Serializable {
 	@Column(name="tags", length = 100) 
 	private String tags;  // 标签
 	
+	@Column(name="file_id") 
+	private Long file;
+	
 	protected Blog() {
 		// TODO Auto-generated constructor stub
 	}
