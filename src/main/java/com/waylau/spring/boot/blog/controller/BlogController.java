@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,8 @@ import com.waylau.spring.boot.blog.vo.TagVO;
 @Controller
 @RequestMapping("/blogs")
 public class BlogController {
- 
+	@Autowired
+	private UserDetailsService userDetailsService;
 	@Autowired
     private EsBlogService esBlogService;
 	@GetMapping
@@ -38,6 +40,7 @@ public class BlogController {
 			@RequestParam(value="async",required=false) boolean async,
 			@RequestParam(value="pageIndex",required=false,defaultValue="0") int pageIndex,
 			@RequestParam(value="pageSize",required=false,defaultValue="10") int pageSize,
+			@RequestParam(value="username",required=false,defaultValue="Ajax") String username,
 			Model model) {
  
 		Page<EsBlog> page = null;
@@ -61,7 +64,9 @@ public class BlogController {
 		}  
  
 		list = page.getContent();	// 当前所在页面数据列表
- 
+		User user= (User)userDetailsService.loadUserByUsername(username);
+		System.out.println(user.getAvatar());
+		model.addAttribute("user", user);
 
 		model.addAttribute("order", order);
 		model.addAttribute("keyword", keyword);
@@ -78,6 +83,7 @@ public class BlogController {
 			model.addAttribute("tags", tags);
 			List<User> users = esBlogService.listTop12Users();
 			model.addAttribute("users", users);
+			
 		}
 		
 		return (async==true?"/index :: #mainContainerRepleace":"/index");

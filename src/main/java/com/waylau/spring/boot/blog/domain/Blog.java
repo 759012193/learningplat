@@ -91,12 +91,21 @@ public class Blog implements Serializable {
 		inverseJoinColumns = @JoinColumn(name = "vote_id", referencedColumnName = "id"))
 	private List<Vote> votes;
 	
+	public Long getFile() {
+		return file;
+	}
+	public void setFile(Long file) {
+		this.file = file;
+	}
 	@OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
 	@JoinColumn(name="catalog_id")
 	private Catalog catalog;
 
 	@Column(name="tags", length = 100) 
 	private String tags;  // 标签
+	
+	@Column(name="file_id") 
+	private Long file;
 	
 	protected Blog() {
 		// TODO Auto-generated constructor stub

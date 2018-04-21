@@ -251,6 +251,7 @@ public class UserspaceController {
 		
 		model.addAttribute("blog", new Blog(null, null, null));
 		model.addAttribute("catalogs", catalogs);
+		model.addAttribute("user", user);
 		return new ModelAndView("/userspace/blogedit", "blogModel", model);
 	}
 	

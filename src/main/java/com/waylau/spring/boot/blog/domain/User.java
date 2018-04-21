@@ -63,7 +63,8 @@ public class User implements UserDetails, Serializable {
 	
 	@Column(length = 200)
 	private String avatar; // 头像图片地址
-
+	@Column(length = 20)
+	private int sorce;
 	@ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinTable(name = "user_authority", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), 
 		inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
@@ -93,6 +94,14 @@ public class User implements UserDetails, Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getSorce() {
+		return sorce;
+	}
+
+	public void setSorce(int sorce) {
+		this.sorce = sorce;
 	}
 
 	public String getEmail() {
