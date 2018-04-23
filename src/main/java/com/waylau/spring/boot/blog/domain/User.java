@@ -65,7 +65,7 @@ public class User implements UserDetails, Serializable {
 	private String avatar; // 头像图片地址
 	@Column(length = 20)
 	private int sorce;
-	
+
 	@ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinTable(name = "user_authority", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), 
 		inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
