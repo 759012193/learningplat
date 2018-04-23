@@ -185,7 +185,7 @@ public class UserspaceController {
 	public String getBlogById(@PathVariable("username") String username,@PathVariable("id") Long id, Model model) {
 		User principal = null;
 		Blog blog = blogService.getBlogById(id);
-		
+		User  user = (User)userDetailsService.loadUserByUsername(username);
 		// 每次读取，简单的可以认为阅读量增加1次
 		blogService.readingIncrease(id);
 
@@ -214,7 +214,7 @@ public class UserspaceController {
 		model.addAttribute("isBlogOwner", isBlogOwner);
 		model.addAttribute("blogModel",blog);
 		model.addAttribute("currentVote",currentVote);
-		
+		model.addAttribute("user", user);
 		return "/userspace/blog";
 	}
 	
@@ -268,6 +268,7 @@ public class UserspaceController {
 		
 		model.addAttribute("blog", blogService.getBlogById(id));
 		model.addAttribute("catalogs", catalogs);
+		model.addAttribute("user", user);
 		return new ModelAndView("/userspace/blogedit", "blogModel", model);
 	}
 	

@@ -2,113 +2,135 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      <style>
+	.card{
+		
+		
+	}
+	.needright{
+float:left;
+		
+	}
+	.time{
+		margin-left: 40%;;
+	}
+	.btn{
+		transition: all 2s;
+		
+	}
+	.btn:hover{
+		width: 100px;
+		background-color: red;
+	}
+</style>
 <head th:replace="~{fragments/header :: header}">
 </head>
 <body>
+		
 <!-- Page Content -->
-<div class="container blog-content-container">
+		<div class="container blog-content-container">
 
-    <div class="row">
+			<div class="row">
 
-        <!-- Blog Entries Column -->
-        <div class="col-md-8">
+				<!-- 右侧栏目 -->
+				<div class="col-md-4">
+					<div id="card">
+						
+						<a class="btn btn-success"  th:href="'/u/' + ${#authentication.name} + '/blogs/edit'" style="width:100%">发布博客</a>
+					</div>
+					<div class="card">
+						<img class="card-img-top rounded-circle"  th:src="${user.avatar} == null ? '/images/avatar-defualt.jpg' : ${user.avatar} " alt="Card image" style="width:60%;margin-left: 20%;">
+						<div class="card-body">
+							<h4 class="card-title" style="text" sec:authentication="name">ajax</h4>财富：
+							<sapn class="card-text" th:text="${user.sorce}"></span>
+							
+						</div>
+					</div>
+					<!-- 热门文章 -->
+						<div class="card bg-success">
+							<h5 class="card-header"><i class="fa fa-fire" aria-hidden="true"></i> 热门文章</h5>
 
-            <!-- Blog Post -->
-            <div id="mainContainer">
-                <div id="mainContainerRepleace">
-		            <div class="card mb-4" th:each="blog : ${blogList}">
-		                <div class="card-block">
-		                 	<h2 class="card-title">
+							<ul class="list-group bg-secondary" th:each="hotblog , hotblogStat : ${hotest}" th:object="${hotblog}">
+								<a th:href="'/u/'+*{username} +'/blogs/'+ *{blogId}" class="list-group-item">
+									[[*{title}]]<span class="badge badge-pill" th:classappend="${hotblogStat.index} eq 0 ? 'badge-danger': (${hotblogStat.index} eq 1 ? 'badge-warning':(${hotblogStat.index} eq 2 ? 'badge-info':'badge-default'))">[[*{readSize}]]</span>
+								</a>
+							</ul>
+
+						</div>
+					<div>
+						
+
+						<!-- 热门用户 -->
+						<div class="card bg-success">
+							<h5 class="card-header"><i class="fa fa-users" aria-hidden="true"></i> 牛人推荐</h5>
+							<div class="card-block bg-secondary">
+								<div class="row">
+									<div class="col-lg-12">
+										<span th:each="user: ${users}" th:object="${user}">
+				                  <a href="/u/waylau" th:href="'/u/' + *{username}" title="waylau" th:title="*{username}">
+				                    <img src="/images/avatar-defualt.jpg" th:src="*{avatar} == null ? '/images/avatar-defualt.jpg' : *{avatar}" class="blog-avatar-50">
+				                  </a>
+				                </span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						
+
+						
+					</div>
+				</div>
+				<!-- Blog Entries Column -->
+				<div class="card col-md-8">
+                         <div class="card-header ">
+						 	<div class="btn-group btn-group-lg">
+						 	    <a class="btn bg-success link" th:attr="url='/blogs?order='" onclick="rotateYDIV()">全部</a>
+								<a class="btn  link"  th:attr="url='/blogs?order=hot'" onclick="rotateYDIV()">推荐</a>
+								<a class="btn  link"  th:attr="url='/blogs?order=new'" onclick="rotateYDIV()">最新</a>
+							</div>
+						 </div>
+					<!-- Blog Post -->
+					<div id="mainContainer">
+						<div id="mainContainerRepleace">
+							<div class="card mb-4" th:each="blog : ${blogList}">
+								<div class="card-block">
+									<h2 class="card-title">
 		                 		<span>
 				                  <a href="/u/waylau" title="waylau" th:href="'/u/' + ${blog.username}"  th:title="${blog.username}">
 				                    <img src="/images/avatar-defualt.jpg" th:src="${blog.avatar} == null ? '/images/avatar-defualt.jpg' : ${blog.avatar}"  class="blog-avatar-50">
 				                  </a>
 						        </span>
-		                        <a href="/u/waylau/blogs/1" class="card-link" title="waylau" 
+						       <a href="/u/waylau/blogs/1" class="card-link text-dark" title="waylau" 
 		                        	th:href="'/u/' + ${blog.username} + '/blogs/'+ ${blog.blogId}"  th:title="${blog.title}" th:text="${blog.title}">
-		                            OAuth 2.0 认证的原理与实践
+		                           
 		                        </a>
+		                       
 		                    </h2>
-		                    <p class="card-text" th:text="${blog.summary}">使用 OAuth 2.0 认证的的好处是显然易见的。你只需要用同一个账号密码，就能在各个网站进行访问，而免去了在每个网站都进行注册的繁琐过程。 本文将介绍
-		                        OAuth 2.0 的原理，并基于 Spring Security 和 GitHub 账号，来演示 OAuth 2.0 的认证的过程。</p>
-		                    <div class="card-text">
-		                        <a href="/u/waylau" th:href="'/u/' + ${blog.username}" class="card-link" th:text=${blog.username}>waylau</a> 发表于 [[${#dates.format(blog.createTime, 'yyyy-MM-dd HH:mm')}]] <i class="fa fa-eye" aria-hidden="true">[[${blog.readSize}]]</i>
-		                        <i class="fa fa-heart-o" aria-hidden="true">[[${blog.voteSize}]]</i> <i class="fa fa-comment-o"
-		                                                                              aria-hidden="true">[[${blog.commentSize}]]</i>
-		                    </div>
-		                </div>
-		            </div>
-	 
-		            <div th:replace="~{fragments/page :: page}">...</div>
-	            </div>
-            </div>
- 
-        </div>
+									<p class="card-text" th:text="${blog.summary}">使用 OAuth 2.0 认证的的好处是显然易见的。你只需要用同一个账号密码，就能在各个网站进行访问，而免去了在每个网站都进行注册的繁琐过程。 本文将介绍 OAuth 2.0 的原理，并基于 Spring Security 和 GitHub 账号，来演示 OAuth 2.0 的认证的过程。</p>
+									<div class="card-text ">
+										<a href="/u/waylau" th:href="'/u/' + ${blog.username}" class="card-link time" th:text=${blog.username}>waylau</a> 发表于 [[${#dates.format(blog.createTime, 'yyyy-MM-dd HH:mm')}]] 	
+										<div class="needright">
+											<span class="text-muted"><em>[[${blog.readSize}]]</em>浏览</span>
+											<span class="text-muted"><em>[[${blog.voteSize}]]</em>点赞</span> 
+											<span class="text-muted"><em>[[${blog.commentSize}]]</em>评论</span>
+										</div>
+										
+									</div>
+								</div>
+							</div>
 
-        <!-- 右侧栏目 -->
-        <div class="col-md-4">
-            <div>
-                <!-- 热门标签 -->
-                <div class="card ">
-                    <h5 class="card-header"><i class="fa fa-tags" aria-hidden="true"></i> 热门标签</h5>
-                    <div class="card-block">
-                        <div class="row">
-                            <div class="col-lg-12" >
-                                <a th:each="tag, tagStat : ${tags}" th:object="${tag}" href="/blogs?keyword=1" th:href="'/blogs?keyword=' +  *{name}"> <span class="badge" 
-                                th:classappend="${tagStat.index} eq 0 ? 'badge-danger': (${tagStat.index} eq 1 ? 'badge-warning':(${tagStat.index} eq 2 ? 'badge-info':'badge-default'))"th:text="*{name}">Web Design</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+							<div th:replace="~{fragments/page :: page}">...</div>
+						</div>
+					</div>
 
-                <!-- 热门用户 -->
-                <div class="card my-4">
-                    <h5 class="card-header"><i class="fa fa-users" aria-hidden="true"></i> 热门用户</h5>
-                    <div class="card-block">
-                        <div class="row">
-                            <div class="col-lg-12">
-								<span th:each="user: ${users}" th:object="${user}">
-				                  <a href="/u/waylau" th:href="'/u/' + *{username}" title="waylau" th:title="*{username}">
-				                    <img src="/images/avatar-defualt.jpg" th:src="*{avatar} == null ? '/images/avatar-defualt.jpg' : *{avatar}" class="blog-avatar-50">
-				                  </a>
-				                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+				</div>
 
-                <!-- 热门文章 -->
-                <div class="card my-4">
-                    <h5 class="card-header"><i class="fa fa-fire" aria-hidden="true"></i> 热门文章</h5>
+			</div>
+			<!-- /.row -->
 
-                    <ul class="list-group" th:each="hotblog , hotblogStat : ${hotest}" th:object="${hotblog}">
-                        <a  th:href="'/u/'+*{username} +'/blogs/'+ *{blogId}" class="list-group-item">
-                            [[*{title}]]<span class="badge badge-pill" th:classappend="${hotblogStat.index} eq 0 ? 'badge-danger': (${hotblogStat.index} eq 1 ? 'badge-warning':(${hotblogStat.index} eq 2 ? 'badge-info':'badge-default'))">[[*{readSize}]]</span>
-                        </a>
-                    </ul>
-
-                </div>
-
-                <!-- 最新发布 -->
-                <div class="card my-4">
-                    <h5 class="card-header"><i class="fa fa-line-chart" aria-hidden="true"></i> 最新发布</h5>
-                    <div class="list-group">
-                        <ul class="list-group" th:each="newblog : ${newest}" th:object="${newblog}">
-                        <a  th:href="'/u/'+*{username} +'/blogs/'+ *{blogId}" class="list-group-item" th:text="*{title}">
-                        </a>
- 
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <!-- /.row -->
-
-</div>
-<!-- /.container -->
+		</div>
+		<!-- /.container -->
 
 
 <div th:replace="~{fragments/footer :: footer}">...</div>
@@ -116,6 +138,35 @@
 <!-- JavaScript -->
 <script src="../../js/index.js" th:src="@{/js/index.js}"></script>
 
+<script type="text/javascript">
+		
+			var x, y, n = 0,
+				ny = 0,
+				rotINT, rotYINT
 
+			
+
+			function rotateYDIV() {
+				
+				y = document.getElementById("mainContainer");
+				clearInterval(rotYINT);
+				rotYINT = setInterval("startYRotate()", 1)
+			}
+
+			
+			function startYRotate() {
+				ny = ny + 2
+				y.style.transform = "rotateY(" + ny + "deg)"
+				y.style.webkitTransform = "rotateY(" + ny + "deg)"
+				y.style.OTransform = "rotateY(" + ny + "deg)"
+				y.style.MozTransform = "rotateY(" + ny + "deg)"
+				if(ny >= 360) {
+					clearInterval(rotYINT)
+					if(ny >= 360) {
+						ny = 0
+					}
+				}
+			}
+		</script>
 </body>
 </html>

@@ -14,8 +14,7 @@ $(function() {
 	
 	// 根据用户名、页面索引、页面大小获取用户列表
 	function getBlogsByName(pageIndex, pageSize) {
-		alert($("#name").text());
-		alert("qeqwr");
+		
 		 $.ajax({ 
 			 url: "/blogs", 
 			 contentType : 'application/json',
@@ -54,13 +53,13 @@ $(function() {
 	});
 	
 	// 最新\最热切换事件
-	$(".nav-item .nav-link").click(function() {
+	$(".btn-group .link").click(function() {
  
 		var url = $(this).attr("url");
 		
 		// 先移除其他的点击样式，再添加当前的点击样式
-		$(".nav-item .nav-link").removeClass("active");
-		$(this).addClass("active");  
+		$(".btn-group .link").removeClass("bg-success");
+		$(this).addClass("bg-success");  
  
 		// 加载其他模块的页面到右侧工作区
 		 $.ajax({ 
