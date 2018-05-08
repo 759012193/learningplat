@@ -7,12 +7,7 @@ import com.dreamfish.domain.Blog;
 import com.dreamfish.domain.Catalog;
 import com.dreamfish.domain.User;
 
-/**
- * Blog 服务接口.
- * 
- * @since 1.0.0 2017年4月7日
- * @author <a href="https://waylau.com">Way Lau</a>
- */
+
 public interface BlogService {
 	/**
 	 * 保存Blog

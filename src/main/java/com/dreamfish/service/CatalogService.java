@@ -2,15 +2,13 @@ package com.dreamfish.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.dreamfish.domain.Catalog;
 import com.dreamfish.domain.User;
 
-/**
- * Catalog 服务接口.
- * 
- * @since 1.0.0 2017年4月10日
- * @author <a href="https://waylau.com">Way Lau</a>
- */
+
 public interface CatalogService {
 	/**
 	 * 保存Catalog
@@ -43,4 +41,6 @@ public interface CatalogService {
 	 * @return
 	 */
 	List<Catalog> listAllCatalogs();
+	
+	Page<Catalog> listCatalogsByPage(Pageable pageable);
 }

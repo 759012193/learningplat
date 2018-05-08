@@ -31,12 +31,7 @@ import com.dreamfish.util.ConstraintViolationExceptionHandler;
 import com.dreamfish.vo.Response;
  
 
-/**
- * 用户控制器.
- * 
- * @author <a href="https://waylau.com">Way Lau</a>
- * @date 2017年2月26日
- */
+
 @RestController
 @RequestMapping("/users")
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")  // 指定角色权限才能操作方法
@@ -67,7 +62,7 @@ public class UserController {
 		model.addAttribute("userList", list);
 		return new ModelAndView(async==true?"users/list :: #mainContainerRepleace":"users/list", "userModel", model);
 	}
-
+	
 	/**
 	 * 获取 form 表单页面
 	 * @param user

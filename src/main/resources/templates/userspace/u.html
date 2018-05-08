@@ -28,8 +28,8 @@
             <div class="row">
 
                 <div class="col-md-12">
-                    <h2 class="card-text" th:text="${user.name}">老卫</h2>
-                    <h4 class="card-text" th:text="${user.username}">waylau</h4>
+                    <h2 class="card-text" th:text="${user.name}">ajax</h2>
+                    <h4 class="card-text" th:text="${user.username}">ajax</h4>
                 </div>
             </div>
 
@@ -37,7 +37,7 @@
             <div class="row ">
                 <div class="col-md-12">
                     <h5><i class="fa fa-envelope-o" aria-hidden="true"></i>
-                        <a href="mailto:waylau521@gmail.com" th:href="'mailto:'+ ${user.email}" th:text="${user.email}">waylau521@gmail.com</a></h5>
+                        <a href="mailto:waylau521@gmail.com" th:href="'mailto:'+ ${user.email}" th:text="${user.email}">759012193@qq.com</a></h5>
                 </div>
             </div>
             
@@ -114,11 +114,17 @@
 		                    </h2>
 		                    <p class="card-text" th:text="${blog.summary}">使用 OAuth 2.0 认证的的好处是显然易见的。你只需要用同一个账号密码，就能在各个网站进行访问，而免去了在每个网站都进行注册的繁琐过程。 本文将介绍
 		                        OAuth 2.0 的原理，并基于 Spring Security 和 GitHub 账号，来演示 OAuth 2.0 的认证的过程。</p>
-		                    <div class="card-text">
-		                        	发表于 [[${#dates.format(blog.createTime, 'yyyy-MM-dd HH:mm')}]] <i class="fa fa-eye" aria-hidden="true">[[${blog.readSize}]]</i>
-		                        <i class="fa fa-heart-o" aria-hidden="true">[[${blog.voteSize}]]</i> <i class="fa fa-comment-o"
-		                                                                              aria-hidden="true">[[${blog.commentSize}]]</i>
-		                    </div>
+		                    <div class="card-text ">
+									           
+										<div class="needright">
+										
+											<span class="text-muted"><em>[[${blog.readSize}]]</em>浏览</span>
+											<span class="text-muted"><em>[[${blog.voteSize}]]</em>点赞</span> 
+											<span class="text-muted"><em>[[${blog.commentSize}]]</em>评论</span>
+											<span style="margin-left:65%">[[${#dates.format(blog.createTime, 'yyyy-MM-dd HH:mm')}]] 	</span>
+										</div>
+										
+									</div>
 		                </div>
 		            </div>
 	 

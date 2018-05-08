@@ -20,12 +20,7 @@ import com.dreamfish.domain.es.EsBlog;
 import com.dreamfish.service.EsBlogService;
 import com.dreamfish.vo.TagVO;
 
-/**
- * 主页控制器.
- * 
- * @since 1.0.0 2017年3月8日
- * @author <a href="https://waylau.com">Way Lau</a> 
- */
+
 @Controller
 @RequestMapping("/blogs")
 public class BlogController {
@@ -40,7 +35,7 @@ public class BlogController {
 			@RequestParam(value="async",required=false) boolean async,
 			@RequestParam(value="pageIndex",required=false,defaultValue="0") int pageIndex,
 			@RequestParam(value="pageSize",required=false,defaultValue="10") int pageSize,
-			@RequestParam(value="username",required=false,defaultValue="admin") String username,
+			@RequestParam(value="username",required=false,defaultValue="ajax") String username,
 			Model model) {
  
 		Page<EsBlog> page = null;

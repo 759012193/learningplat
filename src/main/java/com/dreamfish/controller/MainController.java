@@ -14,12 +14,7 @@ import com.dreamfish.domain.User;
 import com.dreamfish.service.AuthorityService;
 import com.dreamfish.service.UserService;
 
-/**
- * 主页控制器.
- * 
- * @since 1.0.0 2017年3月8日
- * @author <a href="https://waylau.com">Way Lau</a> 
- */
+
 @Controller
 public class MainController {
 	

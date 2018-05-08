@@ -5,6 +5,9 @@ import java.util.List;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.dreamfish.domain.Catalog;
 import com.dreamfish.domain.User;
@@ -26,12 +30,7 @@ import com.dreamfish.vo.CatalogVO;
 import com.dreamfish.vo.Response;
  
 
-/**
- * 分类 控制器.
- * 
- * @since 1.0.0 2017年4月10日
- * @author <a href="https://waylau.com">Way Lau</a> 
- */
+
 @Controller
 @RequestMapping("/catalogs")
 public class CatalogController {
@@ -41,6 +40,34 @@ public class CatalogController {
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
+	
+	
+	
+	
+	
+	
+	
+	@GetMapping("/list")
+	public ModelAndView listcatalog(@RequestParam(value="async",required=false) boolean async,
+				@RequestParam(value="pageIndex",required=false,defaultValue="0") int pageIndex,
+				@RequestParam(value="pageSize",required=false,defaultValue="10") int pageSize,
+				@RequestParam(value="name",required=false,defaultValue="") String name,
+				Model model) {
+		
+
+		Pageable pageable = new PageRequest(pageIndex, pageSize);
+		Page<Catalog> page =catalogService.listCatalogsByPage(pageable);
+		List<Catalog> list = page.getContent();	// 当前所在页面数据列表
+		
+		model.addAttribute("page", page);
+		model.addAttribute("userList", list);
+		return new ModelAndView(async==true?"admins/catalog :: #mainContainerRepleace":"admins/catalog", "userModel", model);
+	}
+	
+	
+	
+	
+	
 	/**
 	 * 获取分类列表
 	 * @param blogId

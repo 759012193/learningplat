@@ -10,12 +10,7 @@ import com.dreamfish.domain.User;
 import com.dreamfish.domain.es.EsBlog;
 import com.dreamfish.vo.TagVO;
 
-/**
- * Blog 服务接口.
- * 
- * @since 1.0.0 2017年4月7日
- * @author <a href="https://waylau.com">Way Lau</a>
- */
+
 public interface EsBlogService {
  	
 	/**

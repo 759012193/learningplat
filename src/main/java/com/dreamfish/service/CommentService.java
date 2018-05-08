@@ -2,12 +2,7 @@ package com.dreamfish.service;
 
 import com.dreamfish.domain.Comment;
 
-/**
- * Comment 服务接口.
- * 
- * @since 1.0.0 2017年4月9日
- * @author <a href="https://waylau.com">Way Lau</a>
- */
+
 public interface CommentService {
 	/**
 	 * 根据id获取 Comment

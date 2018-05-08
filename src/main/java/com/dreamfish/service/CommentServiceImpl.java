@@ -8,12 +8,7 @@ import org.springframework.stereotype.Service;
 import com.dreamfish.domain.Comment;
 import com.dreamfish.repository.CommentRepository;
 
-/**
- * Comment 服务.
- * 
- * @since 1.0.0 2017年4月9日
- * @author <a href="https://waylau.com">Way Lau</a>
- */
+
 @Service
 public class CommentServiceImpl implements CommentService {
 

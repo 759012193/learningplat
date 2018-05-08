@@ -37,12 +37,7 @@ import com.dreamfish.service.UserService;
 import com.dreamfish.util.ConstraintViolationExceptionHandler;
 import com.dreamfish.vo.Response;
 
-/**
- * 用户主页空间控制器.
- * 
- * @since 1.0.0 2017年3月25日
- * @author <a href="https://waylau.com">Way Lau</a> 
- */
+
 @Controller
 @RequestMapping("/u")
 public class UserspaceController {
@@ -299,6 +294,8 @@ public class UserspaceController {
 				blogService.saveBlog(orignalBlog);
 	        } else {
 	    		User user = (User)userDetailsService.loadUserByUsername(username);
+	    		int sorce=user.getSorce();
+	    		user.setSorce(sorce+1);
 	    		blog.setUser(user);
 				blogService.saveBlog(blog);
 	        }

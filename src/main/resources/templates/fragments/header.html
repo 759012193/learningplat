@@ -129,14 +129,12 @@
                                                                                              aria-hidden="true"></i></a>
 				</li>
 			</ul>
-			<div sec:authorize="isAuthenticated()"R class="row rows" >
+			<div sec:authorize="isAuthenticated()" class="row rows" >
 				<a class="head" href="/" th:href="@{'/u/' + ${#authentication.name}} + '/profile'"><span id="name2" sec:authentication="name"></span>
 					<img th:src="${user.avatar} == null ? '/images/avatar-defualt.jpg' : ${user.avatar} " class="rounded-circle" alt="Cinque Terre">
 				</a>
  				
-                <div class="exitandwrite">
- 					<a href="#" th:href="'/u/' + ${#authentication.name} + '/blogs/edit'" class="btn btn-outline-success my-2 my-sm-0">写博客</a>
- 				</div>
+               
 				<form action="/logout" th:action="@{/logout}" method="post" class="exitandwrite">
 					<input class="btn btn-outline-success " type="submit" value="退出">
 				</form>

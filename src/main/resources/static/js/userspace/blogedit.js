@@ -1,11 +1,3 @@
-/*!
- * blogedit.html 页面脚本.
- * 
- * @since: 1.0.0 2017-03-26
- * @author Way Lau <https://waylau.com>
- */
-"use strict";
-//# sourceURL=blogedit.js
 
 // DOM 加载完再执行
 $(function() {
@@ -50,8 +42,31 @@ $(function() {
 		}).done(function(res) {
 			$('#file').val('');
 		}).fail(function(res) {});
- 	})
+ 	});
+ 	
+ 	$("#uploadfile").click(function() {
+ 		
+ 		var file=$('#uoloadfile').val();
+ 		var d=file.split('\\');
+ 		var name=d[d.length-1];
+ 		console.log(name);
+ 	
+		$.ajax({
+		    url: 'http://10.16.26.184:1234/upload',
+		    type: 'POST',
+		    cache: false,
+		    data: new FormData($('#uploadfileformid')[0]),
+		    processData: false,
+		    contentType: false,
+		    success: function(data){
+		    	var mdcontent=$("#md").val();
+		    	 $("#md").val(mdcontent + "["+name+"](http:"+data +") \n");
  
+	         }
+		}).done(function(res) {
+			$('#uoloadfile').val('');
+		}).fail(function(res) {});
+ 	});
  	// 发布博客
  	$("#submitBlog").click(function() {
  		

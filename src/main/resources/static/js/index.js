@@ -1,19 +1,37 @@
-/*!
- * index main JS.
- * 
- * @since: 1.0.0 2017/4/12
- * @author Way Lau <https://waylau.com>
- */
-"use strict";
-//# sourceURL=index.js
+
 
 // DOM 加载完再执行
 $(function() {
     
 	var _pageSize; // 存储用于搜索
-	
+	console.log($("#name").text());
+	 $.ajax({ 
+		 url: "/blogs", 
+		 contentType : 'application/json',
+		 data:{
+			 "async":true, 
+			 "pageIndex":null,
+			 "pageSize":null,
+			 "keyword":$("#indexkeyword").val(),
+			 "username":$("#name").text()
+		 },
+		 success: function(data){
+			 $("#mainContainer").html(data);
+			 
+			 var keyword = $("#indexkeyword").val();
+			 
+			 // 如果是分类查询，则取消最新、最热选中样式
+			 if (keyword.length > 0) {
+				$(".nav-item .nav-link").removeClass("active");
+			 }
+	     },
+	     error : function() {
+	    	 toastr.error("error!");
+	     }
+	 });
 	// 根据用户名、页面索引、页面大小获取用户列表
 	function getBlogsByName(pageIndex, pageSize) {
+		console.log("safasfas");
 		
 		 $.ajax({ 
 			 url: "/blogs", 
